@@ -1,3 +1,5 @@
+import { CardTypes } from "./constants";
+
 export type FixedLengthArray<T, N extends number> = N extends N
   ? number extends N
     ? T[]
@@ -17,3 +19,5 @@ export type Pair = FixedLengthArray<string, 2>;
 export type Tehai = FixedLengthArray<string, 13>;
 
 export type TehaiAfterDraw = FixedLengthArray<string, 14>;
+
+export type ECardTypes = (typeof CardTypes)[keyof typeof CardTypes];

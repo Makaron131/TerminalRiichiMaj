@@ -1,10 +1,14 @@
+import { Player } from "./components/player";
+import { Wall } from "./components/wall";
 import { TEHAI_AFTER_DRAW_LENGTH } from "./constants";
 import { Tehai, TehaiAfterDraw } from "./types";
 import {
   canWin,
+  colorizeCard,
   draw,
   generateInitialTehai,
   generateTehaiAfterDraw,
+  quest,
   tenPai,
 } from "./utils";
 
@@ -92,4 +96,39 @@ export const doubleReachTest = () => {
   }
 };
 
-// TODO: play，通过 terminal 交互实现 play
+export const drawGame = async () => {
+  const wall = new Wall();
+  const player = new Player(wall);
+  wall.initWall();
+
+  let card: string | undefined;
+  while (
+    player.getTehai().length < TEHAI_AFTER_DRAW_LENGTH ||
+    wall.getLiveWall().length > 0
+  ) {
+    card = player.draw();
+
+    if (card && player.getTehaiAfterDraw().length === TEHAI_AFTER_DRAW_LENGTH) {
+      const tehaiAfterDraw = player.getTehaiAfterDraw() as TehaiAfterDraw;
+      if (canWin(tehaiAfterDraw)) {
+        player.showTehai();
+        console.log(`Tsu mo: ${colorizeCard(card)}`);
+        let result = await quest(`oh, you can win!(tsu mo):`);
+        while (result !== "tsu mo") {
+          player.showTehai();
+          console.log(`Tsu mo: ${colorizeCard(card)}`);
+          result = await quest(`\noh, you can win!(tsu mo):`);
+        }
+        console.log("You win.");
+        break;
+      }
+
+      player.showTehai();
+      console.log(`Tsu mo: ${colorizeCard(card)}`);
+      const discardCard = await quest(`\ndiscard your card:`);
+      player.discard(discardCard);
+    }
+  }
+
+  if (!wall.getLiveWall().length) console.log("Exhaustive draw.");
+};

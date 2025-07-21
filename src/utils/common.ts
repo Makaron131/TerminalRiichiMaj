@@ -1,6 +1,6 @@
-export const random1tox = (n: number) => {
-  return Math.floor(Math.random() * n) + 1;
-};
+export const random1tox = (n: number) => random0toXBelow(n) + 1;
+
+export const random0toXBelow = (n: number) => Math.floor(Math.random() * n);
 
 export const getCardsMap = (cards: string[]) => {
   const cardsMap = new Map();
@@ -21,4 +21,15 @@ export const sortMJFn = (a: string, b: string) => {
   }
 
   return a.charCodeAt(0) - b.charCodeAt(0);
+};
+
+export const FisherYatesShuffle = (cards: string[]) => {
+  const result = [...cards];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const x = random0toXBelow(i + 1);
+    [result[i], result[x]] = [result[x], result[i]];
+  }
+
+  return result;
 };

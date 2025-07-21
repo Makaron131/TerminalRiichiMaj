@@ -2,6 +2,7 @@ import {
   chiHouChanceTest,
   chiHouTest,
   doubleReachTest,
+  drawGame,
   tenHouTest,
 } from "./test";
 
@@ -9,3 +10,5 @@ import {
 // chiHouChanceTest()
 // chiHouTest();
 // doubleReachTest();
+
+drawGame();

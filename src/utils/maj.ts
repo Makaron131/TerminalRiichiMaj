@@ -93,8 +93,9 @@ const takeAllHeadCombination = (cards: TehaiAfterDraw) => {
 };
 
 export const canWin = (tehaiAfterDraw: TehaiAfterDraw) => {
+  const newTehaiAfterDraw = [...tehaiAfterDraw] as TehaiAfterDraw;
   // 排序
-  const tehaiAfterDrawAndSort = tehaiAfterDraw.sort(sortMJFn);
+  const tehaiAfterDrawAndSort = newTehaiAfterDraw.sort(sortMJFn);
 
   // 1. 取雀头，没有取到说明缺雀头
   const result = takeAllHeadCombination(tehaiAfterDrawAndSort);
