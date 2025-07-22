@@ -125,7 +125,13 @@ export const drawGame = async () => {
 
       player.showTehai();
       console.log(`Tsu mo: ${colorizeCard(card)}`);
-      const discardCard = await quest(`\ndiscard your card:`);
+      let discardCard;
+      while (
+        !discardCard ||
+        !player.getTehaiAfterDraw().includes(discardCard)
+      ) {
+        discardCard = await quest(`\ndiscard your card:`);
+      }
       player.discard(discardCard);
     }
   }
