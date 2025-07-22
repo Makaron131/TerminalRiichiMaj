@@ -1,8 +1,14 @@
-# Personal foundation code of Riichi Maj
+# Maj
 
 Work in progress...
 
+### 使用
+```bash
+pnpm install
+pnpm dev
+```
+
 ### TODO
 
-- [ ] terminal interaction for draw and discard
-- [ ] draw for win game
+- [x] 抽牌打牌
+- [x] 抽牌游戏
