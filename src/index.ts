@@ -4,11 +4,11 @@ import {
   doubleReachTest,
   drawGame,
   tenHouTest,
-} from "./test";
+} from "./example";
 
 // tenHouTest()
 // chiHouChanceTest()
 // chiHouTest();
 // doubleReachTest();
 
-drawGame();
+// drawGame();
