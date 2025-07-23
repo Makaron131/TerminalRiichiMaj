@@ -1,4 +1,4 @@
-import { ECardTypes } from "./types";
+import { ECardTypes, IYakuInfo } from "./types";
 
 export enum NumberCardTypes {
   P = "p",
@@ -54,4 +54,103 @@ export const DEFAULT_ALL_CARDS: string[] = [
   // 字牌: 1z~7z，各4张
   // 顺序：东(East)、南(South)、西(West)、北(North)、白(White)、发(Green)、中(Red)
   ...generateSingleTypeAllCards(CardTypes.Z),
+];
+
+export const YAKU: Record<string, IYakuInfo> = {
+  // === 1番役 ===
+  riichi: { isYakuman: false, han: 1 }, // 立直
+  ippatsu: { isYakuman: false, han: 1 }, // 一发
+  menzenTsumo: { isYakuman: false, han: 1 }, // 门前清自摸
+  tanyao: { isYakuman: false, han: 1 }, // 断幺九
+  pinfu: { isYakuman: false, han: 1 }, // 平和
+  iipeiko: { isYakuman: false, han: 1 }, // 一杯口
+  rinshanKaihou: { isYakuman: false, han: 1 }, // 岭上开花
+  haiteiRaoyue: { isYakuman: false, han: 1 }, // 海底摸月
+  houteiRaoyui: { isYakuman: false, han: 1 }, // 河底捞鱼
+  robbingAKan: { isYakuman: false, han: 1 }, // 抢杠
+
+  // === 2番役 ===
+  sanshokuDoujun: { isYakuman: false, han: 2 }, // 三色同顺
+  ikkitsuukan: { isYakuman: false, han: 2 }, // 一气通贯
+  chiitoitsu: { isYakuman: false, han: 2 }, // 七对子
+  honchantaiyaochuu: { isYakuman: false, han: 2 }, // 混全带幺九
+  sanankou: { isYakuman: false, han: 2 }, // 三暗刻
+  shousangen: { isYakuman: false, han: 2 }, // 小三元
+  honroutou: { isYakuman: false, han: 2 }, // 混老头
+  toitoi: { isYakuman: false, han: 2 }, // 对对和
+  sanshokuDoukou: { isYakuman: false, han: 2 }, // 三色同刻
+
+  // === 3~6番役 ===
+  ryanpeikou: { isYakuman: false, han: 3 }, // 二杯口
+  junchanTaiyaochuu: { isYakuman: false, han: 3 }, // 纯全带幺九
+  honitsu: { isYakuman: false, han: 3 }, // 混一色
+  chinitsu: { isYakuman: false, han: 6 }, // 清一色
+
+  // === 役满（isYakuman: true，han可省略） ===
+  tenhou: { isYakuman: true }, // 天和
+  chiihou: { isYakuman: true }, // 地和
+  suuankou: { isYakuman: true }, // 四暗刻
+  kokushiMusou: { isYakuman: true }, // 国士无双
+  daisangen: { isYakuman: true }, // 大三元
+  shousuushii: { isYakuman: true }, // 小四喜
+  daisuushii: { isYakuman: true }, // 大四喜
+  tsuuiisou: { isYakuman: true }, // 字一色
+  ryuuiisou: { isYakuman: true }, // 绿一色
+  chinroutou: { isYakuman: true }, // 清老头
+  chuurenPoutou: { isYakuman: true }, // 九莲宝灯
+  suukantsu: { isYakuman: true }, // 四杠子
+
+  // === 特殊（非役但影响分数）===
+  dora: { isYakuman: false, han: 1 }, // 宝牌（需动态计算）
+  uraDora: { isYakuman: false, han: 1 }, // 里宝牌
+  redDora: { isYakuman: false, han: 1 }, // 赤宝牌
+};
+
+// 幺九牌（1和9的数牌 + 所有字牌）
+export const YAO_CHUU_CARDS: string[] = [
+  // 万子（m）
+  "1m",
+  "9m",
+  // 筒子（p）
+  "1p",
+  "9p",
+  // 索子（s）
+  "1s",
+  "9s",
+  // 字牌（z）
+  "1z",
+  "2z",
+  "3z",
+  "4z",
+  "5z",
+  "6z",
+  "7z", // 1z=东, 2z=南, 3z=西, 4z=北, 5z=白, 6z=发, 7z=中
+];
+
+// 非幺九牌（2~8的数牌）
+export const NON_YAO_CHUU_CARDS: string[] = [
+  // 万子（m）
+  "2m",
+  "3m",
+  "4m",
+  "5m",
+  "6m",
+  "7m",
+  "8m",
+  // 筒子（p）
+  "2p",
+  "3p",
+  "4p",
+  "5p",
+  "6p",
+  "7p",
+  "8p",
+  // 索子（s）
+  "2s",
+  "3s",
+  "4s",
+  "5s",
+  "6s",
+  "7s",
+  "8s",
 ];

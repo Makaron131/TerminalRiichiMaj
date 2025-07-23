@@ -11,8 +11,9 @@ import {
   SINGLE_CARD_MAX_COUNT,
   TEHAI_AFTER_DRAW_LENGTH,
   TEHAI_LENGTH,
-} from "../constants";
-import { Pair, Sequence, Tehai, TehaiAfterDraw } from "../types";
+  YAO_CHUU_CARDS,
+} from "@/constants";
+import { Pair, Sequence, Tehai, TehaiAfterDraw } from "@/types";
 import { getCardsMap, random1tox, sortMJFn } from "./common";
 
 export const isTehaiAfterDraw = (tehai: string[]): tehai is TehaiAfterDraw =>
@@ -94,6 +95,9 @@ const takeAllHeadCombination = (cards: TehaiAfterDraw) => {
 
 export const canWin = (tehaiAfterDraw: TehaiAfterDraw) => {
   const newTehaiAfterDraw = [...tehaiAfterDraw] as TehaiAfterDraw;
+
+  if (isChiitoitsu(newTehaiAfterDraw)) return true;
+
   // 排序
   const tehaiAfterDrawAndSort = newTehaiAfterDraw.sort(sortMJFn);
 
@@ -156,4 +160,32 @@ export const tenPai = (tehai: Tehai): string[] => {
   }
 
   return tenPaiCards;
+};
+
+export const isChiitoitsu = (tehaiAfterDraw: TehaiAfterDraw) => {
+  return (
+    tehaiAfterDraw.length === TEHAI_AFTER_DRAW_LENGTH &&
+    new Set(tehaiAfterDraw).size === 7
+  );
+};
+
+export const isKokushiMusou = (tehaiAfterDrawAndSort: TehaiAfterDraw) => {
+  return (
+    tehaiAfterDrawAndSort.every((v) => YAO_CHUU_CARDS.includes(v)) &&
+    new Set(tehaiAfterDrawAndSort).size === 13
+  );
+};
+
+export const isYakuman = (tehaiAfterDrawAndSort: TehaiAfterDraw) => {
+  // 1. 国士
+  if (isKokushiMusou(tehaiAfterDrawAndSort)) {
+    return true;
+  }
+};
+
+export const checkYaku = (tehaiAfterDraw: TehaiAfterDraw) => {
+  const tehaiAfterDrawAndSort = [...tehaiAfterDraw].sort(
+    sortMJFn
+  ) as TehaiAfterDraw;
+  return isYakuman(tehaiAfterDrawAndSort);
 };

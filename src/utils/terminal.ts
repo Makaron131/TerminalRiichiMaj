@@ -1,5 +1,5 @@
 import * as readline from "readline/promises";
-import { CardTypes } from "../constants";
+import { CardTypes } from "@/constants";
 import chalk from "chalk";
 
 const rl = readline.createInterface({

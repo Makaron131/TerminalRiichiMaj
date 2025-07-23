@@ -21,3 +21,8 @@ export type Tehai = FixedLengthArray<string, 13>;
 export type TehaiAfterDraw = FixedLengthArray<string, 14>;
 
 export type ECardTypes = (typeof CardTypes)[keyof typeof CardTypes];
+
+export interface IYakuInfo {
+  isYakuman: boolean; // 是否为役满
+  han?: number; // 番数（役满可不填或填0，因役满有独立计分规则）
+}

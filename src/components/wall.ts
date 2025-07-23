@@ -2,8 +2,8 @@ import {
   DEAD_WALL_LENGTH,
   DEFAULT_ALL_CARDS,
   DORA_INDICATOR_POSITION,
-} from "../constants";
-import { FisherYatesShuffle } from "../utils";
+} from "@/constants";
+import { FisherYatesShuffle } from "@/utils";
 
 export class Wall {
   private liveWall: string[] = [];

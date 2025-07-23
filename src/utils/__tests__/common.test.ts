@@ -1,3 +1,4 @@
+import { Tehai } from "@/types";
 import {
   FisherYatesShuffle,
   getCardsMap,
@@ -5,40 +6,49 @@ import {
   random1tox,
   sortMJFn,
 } from "../common";
+import { PIN_FU_TEHAI } from "./fixtures";
+import { SORT_CASE } from "./fixtures/common/sort";
 
 describe("Common utils", () => {
-  const DEFAULT_CARDS = ["1m", "2m", "3m", "1m", "1p", "1z", "2s"];
-  let cards: string[];
+  let tehai: Tehai;
 
   beforeEach(() => {
-    cards = [...DEFAULT_CARDS];
+    tehai = [...PIN_FU_TEHAI] as Tehai;
   });
 
-  it("random0toXBelow 随机数[0, x)", () => {
-    expect(random0toXBelow(10)).toBeLessThan(10);
-    expect(random0toXBelow(10)).toBeGreaterThanOrEqual(0);
+  describe("random0toXBelow 随机数[0, x)", () => {
+    it("[0,10)", () => {
+      expect(random0toXBelow(10)).toBeLessThan(10);
+      expect(random0toXBelow(10)).toBeGreaterThanOrEqual(0);
+    });
   });
 
-  it("random1tox 随机数[1, x]", () => {
-    expect(random1tox(10)).toBeLessThanOrEqual(10);
-    expect(random1tox(10)).toBeGreaterThanOrEqual(0);
+  describe("random1tox 随机数[1, x]", () => {
+    it("[1,10]", () => {
+      expect(random1tox(10)).toBeLessThanOrEqual(10);
+      expect(random1tox(10)).toBeGreaterThanOrEqual(1);
+    });
   });
 
-  it("getCardsMap 生成牌的哈希表", () => {
-    const map = getCardsMap(cards);
-    expect([...map.keys()]).toEqual([...new Set(cards)]);
-    expect(map.get("1m")).toBe(2);
-    expect(map.get("1z")).toBe(1);
-    expect(map.has("4m")).toBeFalsy();
+  describe("getCardsMap 生成牌的哈希表", () => {
+    it("平和手牌两张7m一张1m没有字牌", () => {
+      const map = getCardsMap(tehai);
+      expect([...map.keys()]).toEqual([...new Set(tehai)]);
+      expect(map.get("7m")).toBe(2);
+      expect(map.get("1m")).toBe(1);
+      expect(map.has("1z")).toBeFalsy();
+    });
   });
 
-  it("sortMJFn 牌排序", () => {
-    const SORTED_CARDS = ["1m", "1m", "2m", "3m", "1p", "2s", "1z"];
-
-    expect(cards.sort(sortMJFn)).toEqual(SORTED_CARDS);
+  describe.each(SORT_CASE)("sortMJFn 牌排序", ({ desc, input, output }) => {
+    it(desc, () => {
+      expect(input.sort(sortMJFn)).toEqual(output);
+    });
   });
 
-  it("FisherYatesShuffle 洗牌", () => {
-    expect(FisherYatesShuffle(cards)).not.toEqual(DEFAULT_CARDS);
+  describe("FisherYatesShuffle 洗牌", () => {
+    it("平和手牌洗牌", () => {
+      expect(FisherYatesShuffle(tehai)).not.toEqual(PIN_FU_TEHAI);
+    });
   });
 });

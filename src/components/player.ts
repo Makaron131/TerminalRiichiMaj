@@ -1,6 +1,6 @@
-import { TEHAI_LENGTH } from "../constants";
-import { colorizeCard, sortMJFn } from "../utils";
+import { TEHAI_LENGTH } from "@/constants";
 import { Wall } from "./wall";
+import { colorizeCard, sortMJFn } from "@/utils";
 
 export class Player {
   private tehai: string[] = [];
