@@ -33,3 +33,11 @@ export const FisherYatesShuffle = (cards: string[]) => {
 
   return result;
 };
+
+export const findFirstSingleCard = (cards: string[]) => {
+  const map = new Map();
+  cards.forEach((card) => map.set(card, (map.get(card) || 0) + 1));
+  for (let [card, count] of map) {
+    if (count === 1) return card;
+  }
+};

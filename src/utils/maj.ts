@@ -14,7 +14,12 @@ import {
   YAO_CHUU_CARDS,
 } from "@/constants";
 import { Pair, Sequence, Tehai, TehaiAfterDraw } from "@/types";
-import { getCardsMap, random1tox, sortMJFn } from "./common";
+import {
+  findFirstSingleCard,
+  getCardsMap,
+  random1tox,
+  sortMJFn,
+} from "./common";
 
 export const isTehaiAfterDraw = (tehai: string[]): tehai is TehaiAfterDraw =>
   tehai.length === TEHAI_AFTER_DRAW_LENGTH;
@@ -127,6 +132,10 @@ export const canWin = (tehaiAfterDraw: TehaiAfterDraw) => {
 };
 
 export const tenPai = (tehai: Tehai): string[] => {
+  if (isChiitoitsuTenPai(tehai)) {
+    return findFirstSingleCard(tehai);
+  }
+
   const tenPaiCards = [];
 
   const numberCardTypes = Object.values(NumberCardTypes);
@@ -160,6 +169,10 @@ export const tenPai = (tehai: Tehai): string[] => {
   }
 
   return tenPaiCards;
+};
+
+export const isChiitoitsuTenPai = (tehai: Tehai) => {
+  return new Set(tehai).size === 7;
 };
 
 export const isChiitoitsu = (tehaiAfterDraw: TehaiAfterDraw) => {

@@ -26,3 +26,9 @@ export interface IYakuInfo {
   isYakuman: boolean; // 是否为役满
   han?: number; // 番数（役满可不填或填0，因役满有独立计分规则）
 }
+
+export interface ITestCase {
+  desc: string;
+  input: any;
+  output: any;
+}

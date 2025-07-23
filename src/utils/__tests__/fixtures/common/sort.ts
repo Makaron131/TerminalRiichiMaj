@@ -1,3 +1,5 @@
+import { ITestCase } from "@/types";
+
 const getOrderCase = (title: string, card1: string, card2: string) => [
   {
     desc: `${title}正序`,
@@ -11,7 +13,7 @@ const getOrderCase = (title: string, card1: string, card2: string) => [
   },
 ];
 
-export const SORT_CASE = [
+export const SORT_CASE: ITestCase[] = [
   ...getOrderCase("万子", "1m", "2m"),
   ...getOrderCase("筒子", "1p", "2p"),
   ...getOrderCase("索子", "1s", "2s"),
